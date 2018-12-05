@@ -5,10 +5,10 @@ import random
 
 class Enemy_0a(object):
 	"""Moves down."""
-	def __init__(self, time):
-		super(Enemy_0a, self).__init__()
-		self.x = 50
-		self.y = 800
+	def __init__(self, time, x, y):
+		super(Enemy_0, self).__init__()
+		self.x = x
+		self.y = y
 		self.life = 20
 		self.attack = 'normal'
 		self.damage = 10
@@ -37,142 +37,6 @@ class Enemy_0a(object):
 			return bullet	
 		else:
 			return None	
-
-class Enemy_0b(object):
-	def __init__(self, time):
-		super(Enemy_0b, self).__init__()
-		self.x = 175
-		self.y = 800
-		self.life = 20
-		self.attack = 'normal'
-		self.damage = 10
-		self.cooldown = 10
-		self.id = 'easy_0'
-		self.points = 5
-
-	def move(self):
-		self.y -= 2
-		return self
-
-	def shoot(self, time, player_point):
-		if time%30 == 0 and time <= 1200:					
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				
-			bullet.obj_vx = 0
-			return bullet
-		elif time >= 1200 and time%20 == 0:
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet	
-		else:
-			return None
-
-class Enemy_0c(object):
-	def __init__(self, time):
-		super(Enemy_0c, self).__init__()
-		self.x = 300
-		self.y = 800
-		self.life = 20
-		self.attack = 'normal'
-		self.damage = 10
-		self.cooldown = 10
-		self.id = 'easy_0'
-		self.points = 5
-
-	def move(self):
-		self.y -= 2
-		return self
-
-	def shoot(self, time, player_point):
-		if time%30 == 0 and time <= 1200:					###Shoots bullets every 1/3 of a second.
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet
-		elif time >= 1200 and time%20 == 0:
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet	
-		else:
-			return None	
-
-class Enemy_0d(object):
-	def __init__(self, time):
-		super(Enemy_0d, self).__init__()
-		self.x = 425
-		self.y = 800
-		self.life = 20
-		self.attack = 'normal'
-		self.damage = 10
-		self.cooldown = 10
-		self.id = 'easy_0'
-		self.points = 5
-
-	def move(self):
-		self.y -= 2
-		return self
-
-	def shoot(self, time, player_point):
-		if time%30 == 0 and time <= 1200:					###Shoots bullets every 1/3 of a second.
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet
-		elif time >= 1200 and time%20 == 0:
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet	
-		else:
-			return None
-
-class Enemy_0e(object):
-	def __init__(self, time):
-		super(Enemy_0e, self).__init__()
-		self.x = 550
-		self.y = 800
-		self.life = 20
-		self.attack = 'normal'
-		self.damage = 10
-		self.cooldown = 10
-		self.id = 'easy_0'
-		self.points = 5
-
-	def move(self):
-		self.y -= 2
-		return self
-
-	def shoot(self, time, player_point):
-		if time%30 == 0 and time <= 1200:					###Shoots bullets every 1/3 of a second.
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet
-		elif time >= 1200 and time%20 == 0:
-			bullet = bull.bullet()
-			bullet.obj_x = self.x 			###Initial position
-			bullet.obj_y = self.y 			
-			bullet.obj_vy = -10				###Initial velocity
-			bullet.obj_vx = 0
-			return bullet	
-		else:
-			return None
 
 class Enemy_1(object):
 	"""Moves downwards on the left side of the screen."""
@@ -579,4 +443,4 @@ class Enemy_10(object):				#|_|_
 			bullet.obj_vx = (-self.x+player_point["x"])/player_point["y"]
 			return bullet
 		else:
-			return None					
+			return None
