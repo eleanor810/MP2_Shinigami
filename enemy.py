@@ -3,15 +3,15 @@ import bullet as bull
 import random
 
 
-class Enemy_0a(object):
+class Enemy_0(object):
 	"""Moves down."""
-	def __init__(self, time, x, y):
+	def __init__(self, time, x):
 		super(Enemy_0, self).__init__()
 		self.x = x
-		self.y = y
+		self.y = 800
 		self.life = 20
 		self.attack = 'normal'
-		self.damage = 10
+		self.damage = 5
 		self.cooldown = 10
 		self.id = 'easy_0'
 		self.points = 5
@@ -40,9 +40,9 @@ class Enemy_0a(object):
 
 class Enemy_1(object):
 	"""Moves downwards on the left side of the screen."""
-	def __init__(self, time):		
+	def __init__(self, time,x):		
 		super(Enemy_1, self).__init__()
-		self.x = 50							###Initial position
+		self.x = x							###Initial position
 		self.y = 830						
 		self.life = 40						###Health
 		self.attack = "normal"				###Attack
@@ -70,11 +70,12 @@ class Enemy_1(object):
 			return None	
 
 class Enemy_2(object):
-	'''Moves on a square pattern at the top half of the screen counter-clockwise.'''
-	def __init__(self, time):		
+	'''Moves on a square pattern at the top half of the screen., either clockwise or
+		counter-clockwise depending on the starting point.'''
+	def __init__(self, time, x):		
 		super(Enemy_2, self).__init__()
-		self.x = 50
-		self.y = 850
+		self.x = x
+		self.y = 800
 		self.life = 60
 		self.attack = "normal"
 		self.damage = 10
@@ -83,25 +84,29 @@ class Enemy_2(object):
 		self.right = True
 		self.time = time
 		self.points = 8
-
+		self.direction = 'counter-clockwise'
+		if x >= 300:
+			self.direction = 'clockwise'
 
 	def move(self):
-		if self.x == 50 and self.y > 250:		###Moves downwards
-			self.left = False
-			self.down = True
-			self.y -= 2.5
-		if self.x < 550 and self.y == 250:		###Moves to the right
-			self.down = False
-			self.right = True
-			self.x += 2.5
-		if self.x == 550 and self.y < 750:		###Moves upwards
-			self.right = False
-			self.up = True
-			self.y += 2.5
-		elif self.x > 50 and self.y == 750:		###Moves to the left
-			self.up = False
-			self.left = True
-			self.x -= 2.5
+		if self.direction == 'counter-clockwise':
+			if self.x == 50 and self.y > 250:		###Moves downwards
+				self.y -= 2.5
+			if self.x < 550 and self.y == 250:		###Moves to the right
+				self.x += 2.5
+			if self.x == 550 and self.y < 750:		###Moves upwards
+				self.y += 2.5
+			elif self.x > 50 and self.y == 750:		###Moves to the left
+				self.x -= 2.5
+		elif self.direction == 'clockwise':
+			if self.x == 550 and self.y > 250: ###moves downwards
+				self.y -= 2.5					
+			if self.x > 50 and self.y == 250:		###Moves to the left
+				self.x -= 2.5
+			if self.x == 50 and self.y < 750:		###Moves upwards
+				self.y += 2.5
+			elif self.x < 550 and self.y == 750:		###Moves to the right
+				self.x += 2.5
 		return self
 
 	def shoot(self, time, player_point):
@@ -116,12 +121,12 @@ class Enemy_2(object):
 			return None		
 
 class Enemy_3(object):
-	'''Moves upwards to the left.''' 
-	def __init__(self, time):		
+	'''Moves upwards in a diagonal direction.''' 
+	def __init__(self, time, x):		
 		super(Enemy_3, self).__init__()
-		self.x = 630
-		self.y = 200
-		self.life = 80
+		self.x = x
+		self.y = 300
+		self.life = 70
 		self.attack = "normal"
 		self.damage = 10
 		self.cooldown = 10 
@@ -129,11 +134,18 @@ class Enemy_3(object):
 		self.left = True
 		self.time = time
 		self.points = 12
+		self.direction = 'right'
+		if x >= 300:
+			self.direction = 'left'
 
 
 	def move(self):	
-		self.y += 4			
-		self.x -= 3
+		if self.direction == 'left':
+			self.y += 4			
+			self.x -= 3
+		elif self.direction == 'right':
+			self.y += 4
+			self.x += 3
 		return self
 
 	def shoot(self, time, player_point):
@@ -148,24 +160,30 @@ class Enemy_3(object):
 			return None	
 
 class Enemy_4(object):
-	'''Moves upwards to the right.'''
-	def __init__(self, time):		
+	'''Moves upwards in a diagonal direction. Has two guns''' 
+	def __init__(self, time, x):		
 		super(Enemy_4, self).__init__()
-		self.x = -30
-		self.y = 200
+		self.x = x
+		self.y = 400
 		self.life = 80
 		self.attack = "normal"
 		self.damage = 10
-		self.cooldown = 10
-		self.id = "easy_3"
+		self.cooldown = 15
+		self.id = "easy_4"
 		self.right = True
 		self.time = time
 		self.points = 20
-
+		self.direction = 'right'
+		if x >= 300:
+			self.direction = 'left'
 
 	def move(self):	
-		self.y += 4
-		self.x += 3
+		if self.direction == 'left':
+			self.y += 4			
+			self.x -= 3
+		elif self.direction == 'right':
+			self.y += 4
+			self.x += 3
 		return self
 
 	def shoot(self, time, player_point):
@@ -180,15 +198,15 @@ class Enemy_4(object):
 			return None	
 
 class Enemy_5(object):
-	'''Moves downwards on the right side of the screen.'''
-	def __init__(self, time):		#
+	'''Moves downwards.'''
+	def __init__(self, time, x,y):		#
 		super(Enemy_5, self).__init__()
-		self.x = 550
-		self.y = 830
-		self.life = 40
+		self.x = x
+		self.y = y
+		self.life = 100
 		self.attack = "normal"
 		self.damage = 10
-		self.cooldown = 10
+		self.cooldown = 20
 		self.id = "med_1"
 		self.right = True
 		self.time = time
@@ -293,46 +311,44 @@ class Enemy_7(object):
 			return None		
 
 class Enemy_8(object):
-	"""Moves in a square pattern at the top half of the screen clockwise."""
-	def __init__(self):		
+	"""Moves in a square pattern at the top half of the screen, either clockwise or
+		counter-clockwise depending on the starting point."""
+	def __init__(self,x):		
 		super(Enemy_8, self).__init__()
-		self.x = 550
+		self.x = x
 		self.y = 800
-		self.life = 60
+		self.life = 100
 		self.attack = "normal"
-		self.damage = 10
-		self.cooldown = 10
+		self.damage = 20
+		self.cooldown = 20
 		self.id = "hard_1"
 		self.right = False
 		self.down = True
 		self.points = 65
+		self.direction = 'counter-clockwise'
+		if x >= 300:
+			self.direction = 'clockwise'
 
-	def move(self):		
-		if self.y > 400 and self.down:
-			self.y -= 2.5					
-
-		if self.y == 400:
-			self.down = False
-
-		if not self.down and self.x > 50:
-			self.x -= 2.5
-		
-		if self.x == 50:
-			self.right = True
-
-		if self.right and self.y < 750:
-			self.y += 2.5
-
-		if self.y == 750:
-			self.down = True
-
-		if self.down and self.x < 550:
-			self.x += 2.5		
-
-		if self.x == 550:
-			self.right = False
-
-		return self						
+	def move(self):
+		if self.direction == 'counter-clockwise':
+			if self.x == 50 and self.y > 250:		###Moves downwards
+				self.y -= 2.5
+			if self.x < 550 and self.y == 250:		###Moves to the right
+				self.x += 2.5
+			if self.x == 550 and self.y < 750:		###Moves upwards
+				self.y += 2.5
+			elif self.x > 50 and self.y == 750:		###Moves to the left
+				self.x -= 2.5
+		elif self.direction == 'clockwise':
+			if self.x == 550 and self.y > 250: ###moves downwards
+				self.y -= 2.5					
+			if self.x > 50 and self.y == 250:		###Moves to the left
+				self.x -= 2.5
+			if self.x == 50 and self.y < 750:		###Moves upwards
+				self.y += 2.5
+			elif self.x < 550 and self.y == 750:		###Moves to the right
+				self.x += 2.5
+		return self
 
 	def shoot(self, time, player_point):
 		if time%10 == 0:
